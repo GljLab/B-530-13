@@ -144,7 +144,8 @@ docker compose logs -f
 │   │   └── api/         # API 接口
 │   └── package.json
 ├── db/               # 数据库脚本
-│   └── init.sql      # 初始化脚本（含酒店表和权限数据）
+│   ├── init.sql      # 初始化脚本（含酒店表和权限数据）
+│   └── migration_20260616_booking_system.sql  # 预订管理系统迁移脚本
 └── docker-compose.yml
 ```
 

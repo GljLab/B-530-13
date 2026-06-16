@@ -147,6 +147,38 @@
             <span>批量导入</span>
           </el-menu-item>
         </el-sub-menu>
+
+        <el-sub-menu index="/booking" v-if="hasBookingPermission">
+          <template #title>
+            <el-icon><Calendar /></el-icon>
+            <span>预订管理</span>
+          </template>
+
+          <el-menu-item index="/booking/roomQuery" v-if="hasPermission('booking:roomQuery:list')">
+            <el-icon><Search /></el-icon>
+            <span>房源查询</span>
+          </el-menu-item>
+
+          <el-menu-item index="/booking/create" v-if="hasPermission('booking:create')">
+            <el-icon><EditPen /></el-icon>
+            <span>创建预订</span>
+          </el-menu-item>
+
+          <el-menu-item index="/booking/list" v-if="hasPermission('booking:list')">
+            <el-icon><Document /></el-icon>
+            <span>预订单管理</span>
+          </el-menu-item>
+
+          <el-menu-item index="/booking/statistics" v-if="hasPermission('booking:statistics:list')">
+            <el-icon><DataLine /></el-icon>
+            <span>预订统计</span>
+          </el-menu-item>
+
+          <el-menu-item index="/booking/calendar" v-if="hasPermission('booking:calendar:view')">
+            <el-icon><Calendar /></el-icon>
+            <span>预订日历</span>
+          </el-menu-item>
+        </el-sub-menu>
       </el-menu>
     </el-aside>
     
@@ -212,7 +244,8 @@ import {
   Expand, Fold, ArrowDown, SwitchButton,
   House, OfficeBuilding, School, Tickets, Key, DataAnalysis,
   Tools, Document, Edit, Clock, DataLine,
-  UserFilled, Plus, PriceTag, Warning, Checked, CopyDocument, Upload
+  UserFilled, Plus, PriceTag, Warning, Checked, CopyDocument, Upload,
+  Calendar, Search, EditPen
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -257,6 +290,14 @@ const hasCustomerPermission = computed(() => {
          hasPermission('customer:blacklist:approve') ||
          hasPermission('customer:merge') ||
          hasPermission('customer:import')
+})
+
+const hasBookingPermission = computed(() => {
+  return hasPermission('booking:roomQuery:list') ||
+         hasPermission('booking:create') ||
+         hasPermission('booking:list') ||
+         hasPermission('booking:statistics:list') ||
+         hasPermission('booking:calendar:view')
 })
 
 const toggleCollapse = () => {

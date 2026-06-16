@@ -171,101 +171,101 @@ INSERT IGNORE INTO sys_data_permission (role_id, scope_type, custom_dept_ids) VA
 (11, 1, NULL);
 
 -- =============================================
--- 8. 预订管理菜单 (ID range: 300-399)
+-- 8. 预订管理菜单 (ID range: 400-499，避免与客户管理300-399冲突)
 -- =============================================
 INSERT IGNORE INTO sys_menu (id, menu_name, parent_id, order_num, path, component, perms, menu_type, visible, status, icon) VALUES
-(300, '预订管理', 0, 2, '/booking', NULL, NULL, 0, 1, 1, 'Calendar'),
-(301, '房源查询', 300, 1, '/booking/roomQuery', 'booking/RoomQuery', 'booking:roomQuery:list', 1, 1, 1, 'Search'),
-(302, '创建预订', 300, 2, '/booking/create', 'booking/BookingCreate', 'booking:create', 1, 1, 1, 'Edit'),
-(303, '预订单管理', 300, 3, '/booking/list', 'booking/BookingList', 'booking:list', 1, 1, 1, 'Document'),
-(304, '预订统计', 300, 4, '/booking/statistics', 'booking/BookingStatistics', 'booking:statistics:list', 1, 1, 1, 'DataLine'),
-(305, '预订日历', 300, 5, '/booking/calendar', 'booking/BookingCalendar', 'booking:calendar:view', 1, 1, 1, 'Date');
+(400, '预订管理', 0, 3, '/booking', NULL, NULL, 0, 1, 1, 'Calendar'),
+(401, '房源查询', 400, 1, '/booking/roomQuery', 'booking/RoomQuery', 'booking:roomQuery:list', 1, 1, 1, 'Search'),
+(402, '创建预订', 400, 2, '/booking/create', 'booking/BookingCreate', 'booking:create', 1, 1, 1, 'Edit'),
+(403, '预订单管理', 400, 3, '/booking/list', 'booking/BookingList', 'booking:list', 1, 1, 1, 'Document'),
+(404, '预订统计', 400, 4, '/booking/statistics', 'booking/BookingStatistics', 'booking:statistics:list', 1, 1, 1, 'DataLine'),
+(405, '预订日历', 400, 5, '/booking/calendar', 'booking/BookingCalendar', 'booking:calendar:view', 1, 1, 1, 'Date');
 
 -- 房源查询按钮权限
 INSERT IGNORE INTO sys_menu (id, menu_name, parent_id, order_num, path, component, perms, menu_type, visible, status, icon) VALUES
-(311, '房源查询', 301, 1, '', NULL, 'booking:roomQuery:query', 2, 1, 1, NULL),
-(312, '添加到预订清单', 301, 2, '', NULL, 'booking:roomQuery:add', 2, 1, 1, NULL);
+(411, '房源查询', 401, 1, '', NULL, 'booking:roomQuery:query', 2, 1, 1, NULL),
+(412, '添加到预订清单', 401, 2, '', NULL, 'booking:roomQuery:add', 2, 1, 1, NULL);
 
 -- 预订单管理按钮权限
 INSERT IGNORE INTO sys_menu (id, menu_name, parent_id, order_num, path, component, perms, menu_type, visible, status, icon) VALUES
-(321, '预订单查询', 303, 1, '', NULL, 'booking:query', 2, 1, 1, NULL),
-(322, '预订单创建', 303, 2, '', NULL, 'booking:create', 2, 1, 1, NULL),
-(323, '预订单修改', 303, 3, '', NULL, 'booking:edit', 2, 1, 1, NULL),
-(324, '预订单确认', 303, 4, '', NULL, 'booking:confirm', 2, 1, 1, NULL),
-(325, '预订单取消', 303, 5, '', NULL, 'booking:cancel', 2, 1, 1, NULL),
-(326, '取消已支付订单', 303, 6, '', NULL, 'booking:cancelPaid', 2, 1, 1, NULL),
-(327, '办理入住', 303, 7, '', NULL, 'booking:checkin', 2, 1, 1, NULL),
-(328, '更换房间', 303, 8, '', NULL, 'booking:changeRoom', 2, 1, 1, NULL),
-(329, '申请退款', 303, 9, '', NULL, 'booking:refund:apply', 2, 1, 1, NULL),
-(330, '退款审批', 303, 10, '', NULL, 'booking:refund:approve', 2, 1, 1, NULL),
-(331, '预订单导出', 303, 11, '', NULL, 'booking:export', 2, 1, 1, NULL),
-(332, '批量确认', 303, 12, '', NULL, 'booking:batchConfirm', 2, 1, 1, NULL),
-(333, '查看成本价', 303, 13, '', NULL, 'booking:cost:view', 2, 1, 1, NULL);
+(421, '预订单查询', 403, 1, '', NULL, 'booking:query', 2, 1, 1, NULL),
+(422, '预订单创建', 403, 2, '', NULL, 'booking:create', 2, 1, 1, NULL),
+(423, '预订单修改', 403, 3, '', NULL, 'booking:edit', 2, 1, 1, NULL),
+(424, '预订单确认', 403, 4, '', NULL, 'booking:confirm', 2, 1, 1, NULL),
+(425, '预订单取消', 403, 5, '', NULL, 'booking:cancel', 2, 1, 1, NULL),
+(426, '取消已支付订单', 403, 6, '', NULL, 'booking:cancelPaid', 2, 1, 1, NULL),
+(427, '办理入住', 403, 7, '', NULL, 'booking:checkin', 2, 1, 1, NULL),
+(428, '更换房间', 403, 8, '', NULL, 'booking:changeRoom', 2, 1, 1, NULL),
+(429, '申请退款', 403, 9, '', NULL, 'booking:refund:apply', 2, 1, 1, NULL),
+(430, '退款审批', 403, 10, '', NULL, 'booking:refund:approve', 2, 1, 1, NULL),
+(431, '预订单导出', 403, 11, '', NULL, 'booking:export', 2, 1, 1, NULL),
+(432, '批量确认', 403, 12, '', NULL, 'booking:batchConfirm', 2, 1, 1, NULL),
+(433, '查看成本价', 403, 13, '', NULL, 'booking:cost:view', 2, 1, 1, NULL);
 
 -- 预订统计按钮权限
 INSERT IGNORE INTO sys_menu (id, menu_name, parent_id, order_num, path, component, perms, menu_type, visible, status, icon) VALUES
-(341, '统计查询', 304, 1, '', NULL, 'booking:statistics:query', 2, 1, 1, NULL),
-(342, '统计导出', 304, 2, '', NULL, 'booking:statistics:export', 2, 1, 1, NULL);
+(441, '统计查询', 404, 1, '', NULL, 'booking:statistics:query', 2, 1, 1, NULL),
+(442, '统计导出', 404, 2, '', NULL, 'booking:statistics:export', 2, 1, 1, NULL);
 
 -- =============================================
 -- 9. 分配角色权限 - 超级管理员
 -- =============================================
 INSERT IGNORE INTO sys_role_menu (role_id, menu_id) VALUES
-(1, 300), (1, 301), (1, 302), (1, 303), (1, 304), (1, 305),
-(1, 311), (1, 312),
-(1, 321), (1, 322), (1, 323), (1, 324), (1, 325), (1, 326), (1, 327), (1, 328), (1, 329), (1, 330), (1, 331), (1, 332), (1, 333),
-(1, 341), (1, 342);
+(1, 400), (1, 401), (1, 402), (1, 403), (1, 404), (1, 405),
+(1, 411), (1, 412),
+(1, 421), (1, 422), (1, 423), (1, 424), (1, 425), (1, 426), (1, 427), (1, 428), (1, 429), (1, 430), (1, 431), (1, 432), (1, 433),
+(1, 441), (1, 442);
 
 -- =============================================
 -- 10. 分配角色权限 - 酒店管理员(hotel_admin)
 -- =============================================
 INSERT IGNORE INTO sys_role_menu (role_id, menu_id) VALUES
-(3, 300), (3, 301), (3, 302), (3, 303), (3, 304), (3, 305),
-(3, 311), (3, 312),
-(3, 321), (3, 322), (3, 323), (3, 324), (3, 325), (3, 326), (3, 327), (3, 328), (3, 329), (3, 330), (3, 331), (3, 332), (3, 333),
-(3, 341), (3, 342);
+(3, 400), (3, 401), (3, 402), (3, 403), (3, 404), (3, 405),
+(3, 411), (3, 412),
+(3, 421), (3, 422), (3, 423), (3, 424), (3, 425), (3, 426), (3, 427), (3, 428), (3, 429), (3, 430), (3, 431), (3, 432), (3, 433),
+(3, 441), (3, 442);
 
 -- =============================================
 -- 11. 分配角色权限 - 前厅部经理(frontdesk_manager)
 -- =============================================
 INSERT IGNORE INTO sys_role_menu (role_id, menu_id) VALUES
-(4, 300), (4, 301), (4, 302), (4, 303), (4, 304), (4, 305),
-(4, 311), (4, 312),
-(4, 321), (4, 322), (4, 323), (4, 324), (4, 325), (4, 326), (4, 327), (4, 328), (4, 329), (4, 331), (4, 332),
-(4, 341), (4, 342);
+(4, 400), (4, 401), (4, 402), (4, 403), (4, 404), (4, 405),
+(4, 411), (4, 412),
+(4, 421), (4, 422), (4, 423), (4, 424), (4, 425), (4, 426), (4, 427), (4, 428), (4, 429), (4, 431), (4, 432),
+(4, 441), (4, 442);
 
 -- =============================================
 -- 12. 分配角色权限 - 客房部经理(housekeeping_manager)
 -- =============================================
 INSERT IGNORE INTO sys_role_menu (role_id, menu_id) VALUES
-(5, 300), (5, 303), (5, 304), (5, 305),
-(5, 311),
-(5, 321),
-(5, 341);
+(5, 400), (5, 403), (5, 404), (5, 405),
+(5, 411),
+(5, 421),
+(5, 441);
 
 -- =============================================
 -- 13. 分配角色权限 - 普通前台(receptionist)
 -- =============================================
 INSERT IGNORE INTO sys_role_menu (role_id, menu_id) VALUES
-(6, 300), (6, 301), (6, 302), (6, 303),
-(6, 311), (6, 312),
-(6, 321), (6, 322), (6, 323), (6, 324), (6, 325), (6, 327), (6, 328);
+(6, 400), (6, 401), (6, 402), (6, 403),
+(6, 411), (6, 412),
+(6, 421), (6, 422), (6, 423), (6, 424), (6, 425), (6, 427), (6, 428);
 
 -- =============================================
 -- 14. 分配角色权限 - 财务人员(finance_staff)
 -- =============================================
 INSERT IGNORE INTO sys_role_menu (role_id, menu_id) VALUES
-(7, 300), (7, 303), (7, 304),
-(7, 321), (7, 331), (7, 333),
-(7, 341), (7, 342);
+(7, 400), (7, 403), (7, 404),
+(7, 421), (7, 431), (7, 433),
+(7, 441), (7, 442);
 
 -- =============================================
 -- 15. 分配角色权限 - 客服人员(customer_service)
 -- =============================================
 INSERT IGNORE INTO sys_role_menu (role_id, menu_id) VALUES
-(11, 300), (11, 301), (11, 302), (11, 303),
-(11, 311), (11, 312),
-(11, 321), (11, 322), (11, 323);
+(11, 400), (11, 401), (11, 402), (11, 403),
+(11, 411), (11, 412),
+(11, 421), (11, 422), (11, 423);
 
 -- =============================================
 -- 16. 初始化一些测试房型和房间数据（如果不存在）
