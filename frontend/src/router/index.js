@@ -189,6 +189,42 @@ const routes = [
         name: 'CustomerImport',
         component: () => import('@/views/customer/CustomerImport.vue'),
         meta: { title: '批量导入', icon: 'Upload', permission: 'customer:import' }
+      },
+      {
+        path: 'booking/roomQuery',
+        name: 'BookingRoomQuery',
+        component: () => import('@/views/booking/RoomQuery.vue'),
+        meta: { title: '房源查询', icon: 'Search', permission: 'booking:roomQuery:list' }
+      },
+      {
+        path: 'booking/create',
+        name: 'BookingCreate',
+        component: () => import('@/views/booking/BookingCreate.vue'),
+        meta: { title: '创建预订', icon: 'Plus', permission: 'booking:create' }
+      },
+      {
+        path: 'booking/list',
+        name: 'BookingList',
+        component: () => import('@/views/booking/BookingList.vue'),
+        meta: { title: '预订单列表', icon: 'List', permission: 'booking:list' }
+      },
+      {
+        path: 'booking/detail/:id',
+        name: 'BookingDetail',
+        component: () => import('@/views/booking/BookingDetail.vue'),
+        meta: { title: '预订单详情', icon: 'Document', permission: 'booking:query' }
+      },
+      {
+        path: 'booking/statistics',
+        name: 'BookingStatistics',
+        component: () => import('@/views/booking/BookingStatistics.vue'),
+        meta: { title: '预订统计', icon: 'DataLine', permission: 'booking:statistics:list' }
+      },
+      {
+        path: 'booking/calendar',
+        name: 'BookingCalendar',
+        component: () => import('@/views/booking/BookingCalendar.vue'),
+        meta: { title: '预订日历', icon: 'Calendar', permission: 'booking:calendar:view' }
       }
     ]
   },

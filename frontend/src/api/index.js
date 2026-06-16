@@ -349,6 +349,40 @@ const api = {
     downloadImportTemplate: () => request.get('/customer/import-export/template', { responseType: 'blob' }),
     importCustomers: (formData) => request.post('/customer/import-export/import', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
     exportCustomers: (data) => request.post('/customer/import-export/export', data, { responseType: 'blob' })
+  },
+
+  booking: {
+    roomQuery: (params) => request.get('/booking/room/query', { params }),
+    create: (data) => request.post('/booking/create', data),
+    page: (params) => request.get('/booking/page', { params }),
+    get: (id) => request.get(`/booking/${id}`),
+    confirm: (id) => request.put(`/booking/${id}/confirm`),
+    cancel: (id, data) => request.put(`/booking/${id}/cancel`, data),
+    checkin: (id, data) => request.put(`/booking/${id}/checkin`, data),
+    update: (id, data) => request.put(`/booking/${id}`, data),
+    changeRoom: (id, data) => request.put(`/booking/${id}/changeRoom`, data),
+    applyRefund: (id, data) => request.post(`/booking/${id}/refund`, data),
+    batchConfirm: (data) => request.post('/booking/batch/confirm', data),
+    export: (data) => request.post('/booking/export', data, { responseType: 'blob' }),
+    calculatePrice: (params) => request.get('/booking/price/calculate', { params }),
+
+    stats: {
+      today: () => request.get('/booking/statistics/today'),
+      status: () => request.get('/booking/statistics/status'),
+      source: () => request.get('/booking/statistics/source'),
+      trend: (params) => request.get('/booking/statistics/trend', { params }),
+      roomType: () => request.get('/booking/statistics/roomType'),
+      calendar: (params) => request.get('/booking/statistics/calendar', { params }),
+      day: (date) => request.get(`/booking/statistics/day/${date}`),
+      export: (data) => request.post('/booking/statistics/export', data, { responseType: 'blob' })
+    }
+  },
+
+  refund: {
+    page: (params) => request.get('/refund/page', { params }),
+    get: (id) => request.get(`/refund/${id}`),
+    approve: (id, data) => request.put(`/refund/${id}/approve`, data),
+    process: (id, data) => request.put(`/refund/${id}/process`, data)
   }
 }
 
