@@ -56,6 +56,12 @@ public class BookingService {
     private RoomTypeMapper roomTypeMapper;
 
     @Autowired
+    private BuildingMapper buildingMapper;
+
+    @Autowired
+    private FloorMapper floorMapper;
+
+    @Autowired
     private CustomerMapper customerMapper;
 
     @Autowired
@@ -70,6 +76,14 @@ public class BookingService {
     public Map<Long, List<Room>> queryAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate,
                                                       Long roomTypeId, Long floorId, String orientation,
                                                       String viewType) {
+        List<Room> availableRooms = queryAvailableRoomList(checkInDate, checkOutDate, roomTypeId, null, floorId, orientation, viewType);
+        return availableRooms.stream()
+                .collect(Collectors.groupingBy(Room::getRoomTypeId));
+    }
+
+    public List<Room> queryAvailableRoomList(LocalDate checkInDate, LocalDate checkOutDate,
+                                              Long roomTypeId, Long buildingId, Long floorId,
+                                              String orientation, String viewType) {
         if (checkInDate == null || checkOutDate == null) {
             throw new BusinessException("入住日期和退房日期不能为空");
         }
@@ -84,6 +98,9 @@ public class BookingService {
 
         if (roomTypeId != null) {
             roomQuery.and(ROOM.ROOM_TYPE_ID.eq(roomTypeId));
+        }
+        if (buildingId != null) {
+            roomQuery.and(ROOM.BUILDING_ID.eq(buildingId));
         }
         if (floorId != null) {
             roomQuery.and(ROOM.FLOOR_ID.eq(floorId));
@@ -104,6 +121,15 @@ public class BookingService {
                 .collect(Collectors.toList());
 
         for (Room room : availableRooms) {
+            Building building = buildingMapper.selectOneById(room.getBuildingId());
+            if (building != null) {
+                room.setBuildingName(building.getBuildingName());
+            }
+            Floor floor = floorMapper.selectOneById(room.getFloorId());
+            if (floor != null) {
+                room.setFloorName(floor.getFloorName());
+                room.setFloorNumber(floor.getFloorNumber());
+            }
             RoomType roomType = roomTypeMapper.selectOneById(room.getRoomTypeId());
             if (roomType != null) {
                 room.setRoomTypeName(roomType.getTypeName());
@@ -111,8 +137,7 @@ public class BookingService {
             }
         }
 
-        return availableRooms.stream()
-                .collect(Collectors.groupingBy(Room::getRoomTypeId));
+        return availableRooms;
     }
 
     private List<Long> findBookedRoomIds(LocalDate checkInDate, LocalDate checkOutDate, Long excludeBookingId) {

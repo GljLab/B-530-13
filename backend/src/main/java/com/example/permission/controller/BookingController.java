@@ -54,15 +54,16 @@ public class BookingController {
 
     @GetMapping("/room/query")
     @PreAuthorize("hasAuthority('booking:roomQuery:query')")
-    public Result<Map<Long, List<Room>>> queryAvailableRooms(
+    public Result<List<Room>> queryAvailableRooms(
             @RequestParam(required = false) LocalDate checkInDate,
             @RequestParam(required = false) LocalDate checkOutDate,
             @RequestParam(required = false) Long roomTypeId,
+            @RequestParam(required = false) Long buildingId,
             @RequestParam(required = false) Long floorId,
             @RequestParam(required = false) String orientation,
             @RequestParam(required = false) String viewType) {
-        Map<Long, List<Room>> result = bookingService.queryAvailableRooms(checkInDate, checkOutDate,
-                roomTypeId, floorId, orientation, viewType);
+        List<Room> result = bookingService.queryAvailableRoomList(checkInDate, checkOutDate,
+                roomTypeId, buildingId, floorId, orientation, viewType);
         return Result.success(result);
     }
 

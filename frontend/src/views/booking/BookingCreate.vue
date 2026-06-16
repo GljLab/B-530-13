@@ -776,6 +776,18 @@ const disableCheckoutDate = (date) => {
 }
 
 const initDefaultDates = () => {
+  const pendingBooking = sessionStorage.getItem('pendingBooking')
+  if (pendingBooking) {
+    try {
+      const bookingData = JSON.parse(pendingBooking)
+      if (bookingData.checkInDate && bookingData.checkOutDate) {
+        step1Form.checkinDate = bookingData.checkInDate
+        step1Form.checkoutDate = bookingData.checkOutDate
+        return
+      }
+    } catch {}
+  }
+  
   const today = new Date()
   const tomorrow = new Date(today)
   tomorrow.setDate(tomorrow.getDate() + 1)
@@ -1021,14 +1033,18 @@ const handleSubmit = async () => {
       customerId: selectedCustomer.value?.id,
       customerName: selectedCustomer.value?.name,
       customerPhone: selectedCustomer.value?.phone,
-      checkinDate: step1Form.checkinDate,
-      checkoutDate: step1Form.checkoutDate,
+      checkInDate: step1Form.checkinDate,
+      checkOutDate: step1Form.checkoutDate,
       days: stayDays.value,
       guestCount: step1Form.guestCount,
       extraBedCount: step1Form.extraBedCount,
-      arrivalTime: step1Form.arrivalTime,
-      specialRequests: step1Form.specialRequests,
-      guests: step2Form.guests,
+      expectedArrivalTime: step1Form.checkinDate + 'T' + (step1Form.arrivalTime || '14:00') + ':00',
+      specialRequirements: step1Form.specialRequirements,
+      guestNames: step2Form.guests.map(g => g.name).join(','),
+      guestPhone: step2Form.guests[0]?.phone || '',
+      bookingSource: step3Form.source,
+      sourceRemark: step3Form.sourceRemark,
+      guaranteeType: step3Form.guaranteeType,
       roomTotal: roomTotal.value,
       extraBedTotal: extraBedTotal.value,
       otherFee: step3Form.otherFee,
@@ -1036,10 +1052,7 @@ const handleSubmit = async () => {
       discount: step3Form.discount,
       discountRemark: step3Form.discountRemark,
       totalAmount: totalAmount.value,
-      guaranteeType: step3Form.guaranteeType,
-      source: step3Form.source,
-      sourceRemark: step3Form.sourceRemark,
-      priceDetails: priceDetails.value
+      details: priceDetails.value
     }
     const res = await api.booking.create(payload)
     if (res.code === 200) {
@@ -1074,6 +1087,23 @@ const loadRoomTypeInfo = async () => {
 }
 
 const initSelectedRoom = () => {
+  const pendingBooking = sessionStorage.getItem('pendingBooking')
+  if (pendingBooking) {
+    try {
+      const bookingData = JSON.parse(pendingBooking)
+      if (bookingData.rooms && bookingData.rooms.length > 0) {
+        selectedRoom.value = {
+          id: bookingData.rooms[0].roomId,
+          roomNumber: bookingData.rooms[0].roomNumber,
+          roomTypeId: bookingData.rooms[0].roomTypeId,
+          roomTypeName: bookingData.rooms[0].typeName,
+          price: bookingData.rooms[0].price
+        }
+        return
+      }
+    } catch {}
+  }
+  
   const roomData = route.query?.room || localStorage.getItem('selectedBookingRoom')
   if (roomData) {
     try {
